@@ -1,0 +1,67 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block content  %}
+
+
+        <div id="page-content">
+                        <!-- Datatables Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>Message List<br><small>you can edit and delete your data</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>Message</li>
+                            <li><a href="contactform">List</a></li>
+                        </ul>
+                        <!-- END Datatables Header -->
+
+                        <!-- Datatables Content -->
+                        <div class="block full">
+                            <div class="block-title">
+                                <h2><strong>Message</strong>list</h2>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>message</th>
+                                             <th>Date & time</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for kk in msg %}
+                                        <tr>
+                                            <td class="text-center"></td>
+                                            <td>{{ kk.name }}</td>
+                                            <td>{{ kk.email }}</td>
+                                            <td>{{ kk.txt }}</td>
+                                            <td>{{ kk.date }} {{ kk.time }}</td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+{#                                                    <a href="" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i>Edit</a>#}
+                                                    <a href="{% url 'contact_del' pk=kk.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i>Delete</a>
+{#                                                    <a href="{% url 'contact_del' " data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i>Delete</a>#}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END Datatables Content -->
+        </div>
+{% endblock %}
+{% block footerblock %}
+<!-- Load and execute javascript code used only in this page -->
+        <script src="{% static 'back/js/pages/tablesDatatables.js' %}"></script>
+        <script>$(function(){ TablesDatatables.init(); });</script>
+{% endblock %}

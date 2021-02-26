@@ -1,0 +1,95 @@
+{% extends 'back/base.html' %}
+{% load static %}
+{% block headblock %}
+  {#<script src="{% static 'ckeditor/ckeditor.js' %}"></script>  #}
+       <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+   {#<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>  #}
+
+{% endblock %}
+{% block content  %}
+
+
+        <div id="page-content">
+                        <!-- Datatables Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>News Add<br><small>you can edit and delete your data</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>New</li>
+                            <li><a href="/newsadd">add</a></li>
+                        </ul>
+                        <!-- END Datatables Header -->
+
+                        <!-- Datatables Content -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Basic Form Elements Block -->
+                                <div class="block">
+                                    <!-- Basic Form Elements Title -->
+                                    <div class="block-title">
+
+                                        <h2><strong>Add</strong>News</h2>
+                                    </div>
+                                    <!-- END Form Elements Title -->
+
+                                    <!-- Basic Form Elements Content -->
+                                    <form action="{% url 'newsadd' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <input type="text" id="newstitle" name="newstitle" class="form-control" placeholder="News Title">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="newscat" name="newscat" class="select-chosen" data-placeholder="Choose Category" style="width: 250px;">
+                                                    {% for i in cat %}
+                                                    <option value="{{ i.pk }}">{{ i.cat_name }}|{{ i.name }}</option>
+                                                    {% endfor %} }
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <textarea type="text" id="showtxt" name="showtxt" rows="5" class="form-control" placeholder="show txt">short txt</textarea>
+                                            </div>
+                                        </div>
+                                    <script>
+                                        CKEDITOR.replace( 'showtxt' );
+                                    </script>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <textarea type="text" id="bodytxt" name="bodytxt"  rows="5" class="form-control" placeholder="body txt">body txt</textarea>
+                                            </div>
+                                        </div>
+                                    <script>
+                                        CKEDITOR.replace('bodytxt');
+                                    </script>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="file" id="myfile" name="myfile"  rows="5" class="form-control" placeholder="img"></input>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+        </div>
+
+        </div>
+{% endblock %}
+
+{% block footerblock %}
+<!-- Load and execute javascript code used only in this page -->
+        <script src="{% static 'back/js/pages/tablesDatatables.js' %}"></script>
+        <script>$(function(){ TablesDatatables.init(); });</script>
+{% endblock %}
